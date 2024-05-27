@@ -7,4 +7,5 @@ After clone from git repository and install the node packages using below comman
 npm install
 
 Once install, run the application using below command
+
 npm run dev

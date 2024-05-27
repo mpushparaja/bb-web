@@ -1,5 +1,6 @@
-body, button:active{
-  color: #fff;
+body, button, .form-control, .form-select{
+  color: #6F6F6F !important;
+  font-size: 14px!important;
 }
 .top{
   margin-top: 20px;
@@ -13,3 +14,9 @@ header {
 .cursor {
   cursor: pointer;
 }
+.btn-primary {
+  background-color: #ffc107!important;
+  border-color: #ffc107!important;
+  color: black!important;
+}
+

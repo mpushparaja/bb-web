@@ -44,7 +44,7 @@ export function RecipientList() {
   return (
     <>
     <div className="btn-container">
-         <p> <td className="arrow"><button className="btn btn-success" onClick={addRecipientPage}>Add Recipeint</button></td></p>
+         <p> <td className="arrow"><button className="btn btn-primary" onClick={addRecipientPage}>Add Recipeint</button></td></p>
         </div>
       <div className="container">
 
@@ -57,11 +57,11 @@ export function RecipientList() {
               {receipient.receipientDetails.map((data: any, index:any) => {
                 return (
                   <tr>
-                    <td className="name">
+                    <td key={`${index}_name`} className="name">
                       {data.firstName} {data.lastName} <br />
                       {data.accountNumber}
                     </td>
-                    <td className="arrow"><button className="btn btn-success" onClick={recipientDetailsPage(data)}>Transfer</button></td>
+                    <td key={`${index}_button`} className="arrow"><button className="btn btn-primary" onClick={recipientDetailsPage(data)}>Transfer</button></td>
                   </tr>
                 );
               })}

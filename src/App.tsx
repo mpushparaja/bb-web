@@ -25,22 +25,8 @@ function App() {
     }
   }, [isLogin]);
 
-  const pageRefConf = (event: any) => {
-    if (!sessionStorage.getItem("logged")) {
-      console.log("hi");
-      event.preventDefault();
-    }
-  };
-
-  useEffect(() => {
-    window.addEventListener("beforeunload", pageRefConf);
-    return () => {
-      window.removeEventListener("beforeunload", pageRefConf);
-    };
-  }, []);
-
   const PrivateRoute = ({ children }: any) => {
-    return sessionStorage.getItem("logged") ? (
+    return isLogin ? (
       children
     ) : (
       <Navigate to="/" replace />
