@@ -1,5 +1,10 @@
 import { Link } from "react-router-dom";
 export function NavBar() {
+  const logout = (e:any) => {
+    e.preventDefault();
+    sessionStorage.removeItem("logged");
+    window.location.reload();
+  }
   return (
     <header>
       <div className="d-flex flex-column flex-md-row align-items-center pb-3 mb-4 border-bottom">
@@ -20,7 +25,7 @@ export function NavBar() {
               </li>
             </ul>
           </div>
-          <Link className="me-3 py-2 link-body-emphasis text-decoration-none" to="/account-list">Logout</Link>
+          <Link className="me-3 py-2 link-body-emphasis text-decoration-none" onClick={logout} to="/">Logout</Link>
         </nav>
       </div>
     </header>

@@ -94,7 +94,7 @@ export function Login() {
         <div className="col-md-12">
           <input type="password" title="username" className="form-control" required onChange={handleInput("password")} placeholder="Password" />
         </div>
-        <button type="submit" className={login.loading ? "btn disabled": "btn"}>
+        <button type="submit" className={login.loading ? "btn disabled": "btn btn-primary"}>
           {login.loading ? <>
             <span className="spinner-border spinner-border-sm" aria-hidden="true"></span>
             <span role="status">Loading...</span>

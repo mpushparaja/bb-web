@@ -100,7 +100,7 @@ export default function AccountList() {
                 <>
                   <table className="table table-hover">
                     <tbody>
-                      <tr onClick={accountDetailsPage(data.accountId,'loan', 'payments')}>
+                      <tr onClick={accountDetailsPage(data.id,'loan', 'payments')}>
                         <td key={data.loanNumber}></td>
                         <td key={data.principalBalance}>
                           <span>Loan Balance: </span> 
