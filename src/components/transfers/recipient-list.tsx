@@ -43,16 +43,13 @@ export function RecipientList() {
 
   return (
     <>
-    <div className="btn-container">
-         <p> <td className="arrow"><button className="btn btn-primary" onClick={addRecipientPage}>Add Recipeint</button></td></p>
+      <p className="mt-5"><button className="btn btn-primary" onClick={addRecipientPage}>Add Recipeint</button></p>
+      <div className="row g-0 border rounded shadow-sm">
+        <div className="list-container pt-2 pb-1">
+          <h5>Recipient list</h5>
         </div>
-      <div className="container">
-
-        <div className="list-container" style={{ backgroundColor: "#77a19e" }}>
-          <h3>Recipeint list</h3>
-        </div>
-        <div className="recipient-table">
-          <table id="table1" className="table table-bordered">
+        <div >
+          <table className="table">
             <tbody>
               {receipient.receipientDetails.map((data: any, index:any) => {
                 return (
@@ -61,7 +58,7 @@ export function RecipientList() {
                       {data.firstName} {data.lastName} <br />
                       {data.accountNumber}
                     </td>
-                    <td key={`${index}_button`} className="arrow"><button className="btn btn-primary" onClick={recipientDetailsPage(data)}>Transfer</button></td>
+                    <td key={`${index}_button`}><button className="btn btn-primary" onClick={recipientDetailsPage(data)}>Transfer</button></td>
                   </tr>
                 );
               })}

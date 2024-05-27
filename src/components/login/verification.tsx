@@ -207,7 +207,7 @@ export function Verification({checkLogIn} :any) {
         <button
           type="submit"
           style={{ color: "#fff" }}
-          className="btn btn-success"
+          className="btn btn-primary"
           onClick={onResend}
           disabled={resendButtonDisabledTime > 0 ? true : (auth.state.loading? true : false)}>
           {auth.state.loading ? <>
@@ -218,7 +218,7 @@ export function Verification({checkLogIn} :any) {
         <button
           type="submit"
           style={{ color: "#fff" }}
-          className="btn btn-danger"
+          className="btn btn-primary"
           onClick={onConfirm}
           disabled={isEnableConfirmButton ? true: (auth.state.confirmloading ? true: false)}
         >
