@@ -2,7 +2,7 @@ body, button, .form-control, .form-select{
   color: #1f1f1f !important;
 }
 body {
-  margin-bottom:50px;
+  margin-bottom:50px!important;
 }
 .top{
   margin-top: 20px;

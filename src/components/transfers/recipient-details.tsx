@@ -1,10 +1,13 @@
+import { useEffect, useState, useRef } from "react";
 import { useLocation, useNavigate } from "react-router";
 import { Context as context } from "../../shared/context";
 import "./recipient-details.scss";
-import { useEffect, useState } from "react";
+import {Modal} from 'bootstrap'
+import Modals from "../../shared/modal";
 
 export function RecipientDetails() {
   let route = useLocation();
+  const showModal = useRef<any>();
   let navigate = useNavigate();
   const auth = context();
   const [show, SetShow] = useState(false);
@@ -34,8 +37,7 @@ export function RecipientDetails() {
     }));
   })
 
-  const onTransferAmount = (event:any) => {
-    event.preventDefault();
+  const onTransferAmount = () => {
     setState(prevState => ({
       ...prevState,
       loading: true,
@@ -77,23 +79,33 @@ export function RecipientDetails() {
     }));
   };
 
+  const onTransferRequest = (event:any) => {
+    event.preventDefault();
+    const bsModal = new Modal(showModal.current, {
+      backdrop: 'static',
+      keyboard: false,
+    })
+    bsModal.show()
+  }
+
   return (
     <>
       {state.error && (<div className="alert-box-center">
         <div className="alert alert-danger" role="alert">{state.error}</div>
       </div>)}
       <h3>Recipient Details</h3>
+      <Modals modalId={showModal} title="Are you sure to transfer the amount" onConfirm={onTransferAmount} />
       <div className="container">
         <div className="details">
           <p className="name">{route.state.firstName} {route.state.lastName}</p>
           <p className="number">{route.state.accountNumber}</p>
           <p className="bank">{route.state.name}</p>
-          <button className="btn btn-success" onClick={setEnable}>
+          <button className="btn btn-primary" onClick={setEnable}>
             Pay
           </button>
         </div>
         <div className="form-container" hidden={show ? false : true}>
-          <form onSubmit={onTransferAmount}>
+          <form onSubmit={onTransferRequest}>
             <h4>Payee Details</h4>
             <p>
               <label>
@@ -131,10 +143,10 @@ export function RecipientDetails() {
               </label>
             </p>
             <div className="action">
-              <button type="submit" className="btn btn-success">
+              <button type="submit" className="btn btn-primary">
                 Send
               </button>
-              <button className="btn btn-success"onClick={onCancel}>
+              <button className="btn btn-secondary"onClick={onCancel}>
                 Cancel
               </button>
             </div>
