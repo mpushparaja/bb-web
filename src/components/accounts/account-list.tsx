@@ -103,7 +103,7 @@ export default function AccountList() {
                       <tr onClick={accountDetailsPage(data.id,'loan', 'payments')}>
                         <td key={data.loanNumber}></td>
                         <td key={data.principalBalance}>
-                          <span>Loan Balance: </span> 
+                          <span>Available Balance: </span> 
                         </td>
                         <td key={data.productName}></td>
                       </tr>
@@ -136,7 +136,7 @@ export default function AccountList() {
                       <tr onClick={accountDetailsPage(data.accountId,'deposit', 'transactions')}>
                         <td>{data.accountNumber}</td>
                         <td>
-                          <span>Loan Balance: </span> {data.availableBalance}
+                          <span>Available Balance: </span> {data.availableBalance}
                         </td>
                         <td>{data.productName}</td>
                       </tr>

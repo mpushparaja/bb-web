@@ -11,7 +11,7 @@ const initialState = {
 };
 
 const config = {
-  API_URL: "https://pa0ykzslfh.execute-api.ap-southeast-1.amazonaws.com/",
+  API_URL: import.meta.env.VITE_API_URL,
 };
 
 const MyContext = createContext<any>(initialState);
