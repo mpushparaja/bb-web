@@ -3,6 +3,7 @@ import { Routes, Route, BrowserRouter, Navigate } from "react-router-dom";
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import "../node_modules/bootstrap/dist/js/bootstrap.bundle.min";
 import "./App.css";
+import { Provider } from "./shared/context";
 import Footer from "./components/footer";
 import { Login } from "./components/login/login";
 import { NavBar } from "./components/navBar";
@@ -24,6 +25,19 @@ function App() {
     }
   }, [isLogin]);
 
+  const pageRefConf = (event: any) => {
+    if (!sessionStorage.getItem("logged")) {
+      event.preventDefault();
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener("beforeunload", pageRefConf);
+    return () => {
+      window.removeEventListener("beforeunload", pageRefConf);
+    };
+  }, []);
+
   const PrivateRoute = ({ children }: any) => {
     return isLogin ? (
       children
@@ -38,6 +52,7 @@ function App() {
 
   return (
     <div className="container py-3">
+      <Provider>
         <BrowserRouter>
           {isLogin && sessionStorage.getItem("logged") ? <NavBar /> : ""}
           <Routes>
@@ -97,6 +112,7 @@ function App() {
             <Route path="/not-found" element={<NotFound />}></Route>
           </Routes>
         </BrowserRouter>
+      </Provider>
       <Footer />
     </div>
   );

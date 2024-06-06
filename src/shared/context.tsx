@@ -1,5 +1,25 @@
 import { createContext, useState, useContext } from "react";
 
+const headers = {
+  Accept: "application/json",
+  "Content-Type": "application/json",
+};
+
+const { fetch: originalFetch } = window;
+window.fetch =  async (...args:any) => {
+    let [resource, config] = args;
+    //setting the api token for the header
+    config.headers = headers || {};
+    // config.headers["x-api-key"] = apiKey;
+    try {
+        const response = await originalFetch(resource, config);
+        return response;
+    } catch (error) {
+        console.error('Error fetching data:', error);
+        throw error;
+    }
+};  
+
 const initialState = {
   loading: false,
   token: "",
@@ -23,10 +43,6 @@ export const Provider = ({ children }: any) => {
     try {
       const response = await fetch(config.API_URL + "auth/login", {
         method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
         body: JSON.stringify({
           username: auth.username,
           password: auth.password,
@@ -44,10 +60,6 @@ export const Provider = ({ children }: any) => {
     try {
       const response = await fetch(config.API_URL + "auth/password/mfa", {
         method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
         body: JSON.stringify({
           username: auth.username,
           code: auth.code,
@@ -87,10 +99,6 @@ export const Provider = ({ children }: any) => {
         config.API_URL + "/client/find/detail?id=" + clientId,
         {
           method: "GET",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
         }
       );
       const responseJson = await response.json();
@@ -109,10 +117,6 @@ export const Provider = ({ children }: any) => {
     try {
       const response = await fetch(config.API_URL + type + "/account/find", {
         method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
         body: JSON.stringify({
           id: id,
         }),
@@ -135,10 +139,6 @@ export const Provider = ({ children }: any) => {
         config.API_URL + "client/find/recipients?id=" + clientId,
         {
           method: "GET",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
         }
       );
       const responseJson = await response.json();
@@ -154,10 +154,6 @@ export const Provider = ({ children }: any) => {
         config.API_URL + type1 + "/account/" + type2,
         {
           method: "POST",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
           body: JSON.stringify({
             id: clientId,
           }),
@@ -175,11 +171,7 @@ export const Provider = ({ children }: any) => {
       const response = await fetch(
         config.API_URL + "/deposit/transaction/pesonet/banklist",
         {
-          method: "GET",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
+          method: "GET"
         }
       );
       const responseJson = await response.json();
@@ -209,10 +201,6 @@ export const Provider = ({ children }: any) => {
     try {
       const response = await fetch(config.API_URL + "recipient/add", {
         method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
         body: JSON.stringify(data),
       });
       const responseJson = await response.json();
@@ -239,10 +227,6 @@ export const Provider = ({ children }: any) => {
       }
       const response = await fetch(config.API_URL + url, {
         method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
         body: JSON.stringify({
           senderaccountid: senderaccountid,
           recipientid: recipientid,

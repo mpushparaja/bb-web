@@ -1,1 +1,23 @@
 @import "../node_modules/bootstrap/dist/css/bootstrap.css";
+
+body {
+  font-family: "Poppins", sans-serif !important;
+  color: #01403c !important;
+
+  .page-title {
+    font-size: 2rem;
+    font-weight: 600;
+  }
+
+  .table-bb{
+    border: 3px solid #01403c;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 400;
+  }
+
+  .subtitle {
+    font-size: 1.3rem;
+    font-weight: 400;
+  }
+}

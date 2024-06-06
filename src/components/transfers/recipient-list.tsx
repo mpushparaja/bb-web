@@ -43,22 +43,25 @@ export function RecipientList() {
 
   return (
     <>
-      <p className="mt-5"><button className="btn btn-primary" onClick={addRecipientPage}>Add Recipeint</button></p>
-      <div className="row g-0 border rounded shadow-sm">
-        <div className="list-container pt-2 pb-1">
-          <h5>Recipient list</h5>
+    <div className="btn-container">
+         <p> <td className="arrow"><button className="btn btn-success" onClick={addRecipientPage}>Add Recipeint</button></td></p>
         </div>
-        <div >
-          <table className="list-container-table table">
+      <div className="container">
+
+        <div className="list-container" style={{ backgroundColor: "#01403c" }}>
+          <h3 className="subtitle">Recipient list</h3>
+        </div>
+        <div className="recipient-table">
+          <table id="table1" className="table list-container-table table-striped">
             <tbody>
               {receipient.receipientDetails.map((data: any, index:any) => {
                 return (
                   <tr>
-                    <td key={`${index}_name`} className="name">
+                    <td className="name">
                       {data.firstName} {data.lastName} <br />
                       {data.accountNumber}
                     </td>
-                    <td key={`${index}_button`}><button className="btn btn-primary" onClick={recipientDetailsPage(data)}>Transfer</button></td>
+                    <td className="arrow"><button className="btn btn-success" onClick={recipientDetailsPage(data)}>Transfer</button></td>
                   </tr>
                 );
               })}

@@ -89,28 +89,28 @@ export function Login() {
       {auth.state.error && (<div className="alert-box-center">
         <div className="alert alert-danger" role="alert">{auth.state.error}</div>
       </div>)}
-    <div className="log-form w-100 m-auto">
-      <form onSubmit={onLogin} noValidate>
-       <div className="logo">
+      <div className="log-form">
+        <div className="logo">
           <img src="src/assets/logo.png" alt="" />
         </div>
-        <h1 className="h3 mb-3 fw-normal">Login to your account</h1>
-        <div className=" mb-3">
-          <input type="text" ref={username} autoFocus className="form-control" required onChange={handleInput("username")} placeholder="Username" />
-          {login.usernameerror && <div className="text-danger mt-2">{login.usernameerror}</div>}
-        </div>
-        <div className="mb-3">
-          <input type="password" ref={password} title="username" className="form-control" required onChange={handleInput("password")} placeholder="Password" />
-          {login.passworderror && <div className="text-danger mt-2">{login.passworderror}</div>}
-        </div>
-        <button type="submit" className={login.loading ? "btn disabled": "btn btn-primary"}>
-          {login.loading ? <>
-            <span className="spinner-border spinner-border-sm" aria-hidden="true"></span>
-            <span role="status">Loading...</span>
-          </>: <>Login</>}
-        </button>
-      </form>
-    </div>
-  </>
+        <h2>Login to your account</h2>
+        <form onSubmit={onLogin} noValidate>
+          <div className="col-md-12 position-relative">
+            <input type="text" ref={username} autoFocus className="form-control" required onChange={handleInput("username")} placeholder="Username" />
+            {login.usernameerror && <div className="text-danger mt-2">{login.usernameerror}</div>}
+          </div>
+          <div className="col-md-12">
+            <input type="password" ref={password} title="username" className="form-control" required onChange={handleInput("password")} placeholder="Password" />
+            {login.passworderror && <div className="text-danger mt-2">{login.passworderror}</div>}
+          </div>
+          <button type="submit" className={login.loading ? "btn disabled": "btn btn-primary"}>
+            {login.loading ? <>
+              <span className="spinner-border spinner-border-sm" aria-hidden="true"></span>
+              <span role="status">Loading...</span>
+            </>: <>Login</>}
+          </button>
+        </form>
+      </div>
+    </>
   );
 }

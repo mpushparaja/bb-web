@@ -7,10 +7,11 @@ export default function AccountList() {
   const auth = context();
   let navigate = useNavigate();
 
-  const accountDetailsPage = (viewId:any, type:string, type1:string) => () => {
+  const accountDetailsPage = (viewId:any, title:any, type:string, type1:string) => () => {
     return navigate("/account-details", {
       state:{
           viewId,
+          title,
           type,
           type1
         },
@@ -85,37 +86,36 @@ export default function AccountList() {
   return (
     <div className="width100">
       <div className="p-2 p-md-3 mb-2 rounded text-body-emphasis bg-body-secondary">
-        <h3>Welcome to Bayanihan Bank</h3>
+        <h3 className="title-name">Welcome to Bayanihan Bank</h3>
         <p className="lead my-3">
-          Account:
+          <span className="subtitle">Account:</span>
           <span>{auth.state.userName ? " " + auth.state.userName : ""}</span>
         </p>
       </div>
       <div>
-        <div className="card border-success mb-3 width100">
+        <div className="card border-success mb-3 w-100">
           <div className="card-header">Loan Accounts </div>
           <div className="card-body text-success">
-            {accountsData.loan.map((data: any) => {
-              return (
-                <>
-                  <table className="table table-hover">
-                    <tbody>
-                      <tr onClick={accountDetailsPage(data.id,'loan', 'payments')}>
-                        <td key={data.loanNumber}></td>
-                        <td key={data.principalBalance}>
-                          <span>Available Balance: </span> 
-                        </td>
-                        <td key={data.productName}></td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </>
-              );
-            })}
-            {(!accountsData.loan.length && !accountsData.loanLoading) && 
-              <div className="text-center">
-                No records
-            </div>}
+            <table className="table table-hover table-sm">
+              <tbody>
+                {accountsData.loan.map((data: any, index: any) => {
+                  return (
+                    <tr onClick={accountDetailsPage(data.id, 'Loan Accounts', 'loan', 'payments')}>
+                      <td className="cursor" align="left" key={`${index}_loannumber`}>{data.loanNumber}</td>
+                      <td className="cursor" align="left" key={`${index}_principlebalance`}>
+                        <span>Available Balance: {data.principalBalance}</span> 
+                      </td>
+                      <td className="cursor" align="left" key={`${index}_loanproductname`}>{data.productName}</td>
+                    </tr>
+                );
+               })}
+              {(!accountsData.loan.length && !accountsData.loanLoading) && 
+                <tr>
+                  <td rowSpan={3} className="text-center">No records</td>
+                </tr>
+              }
+              </tbody>
+            </table>
             {accountsData.loanLoading && 
               <div className="text-center">
                 <div className="spinner-border" role="status">
@@ -125,30 +125,29 @@ export default function AccountList() {
           </div>
         </div>
 
-        <div className="card border-success mb-3 width100">
+        <div className="card border-success mb-3 w-100">
           <div className="card-header">Deposit Accounts </div>
           <div className="card-body text-success">
-            {accountsData.deposit.map((data: any) => {
-              return (
-                <>
-                  <table className="table table-hover">
-                    <tbody>
-                      <tr onClick={accountDetailsPage(data.accountId,'deposit', 'transactions')}>
-                        <td>{data.accountNumber}</td>
-                        <td>
-                          <span>Available Balance: </span> {data.availableBalance}
-                        </td>
-                        <td>{data.productName}</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </>
-              );
-            })}
-            {(!accountsData.deposit.length && !accountsData.depositLoading) && 
-              <div className="text-center">
-                No records
-            </div>}
+            <table className="table table-hover table-sm">
+              <tbody>
+                {accountsData.deposit.map((data: any, index: any) => {
+                  return (
+                    <tr onClick={accountDetailsPage(data.accountId, 'Deposit Accounts', 'deposit', 'transactions')}>
+                      <td className="cursor" align="left" key={`${index}_accountnumber`}>{data.accountNumber}</td>
+                      <td className="cursor" align="left" key={`${index}_availablebalance`}>
+                        <span>Available Balance: </span> {data.availableBalance}
+                      </td>
+                      <td className="cursor" align="left" key={`${index}_depositproductname`}>{data.productName}</td>
+                    </tr>
+                  );
+                })}
+                {(!accountsData.deposit.length && !accountsData.depositLoading) && 
+                  <tr>
+                    <td rowSpan={3} className="text-center">No records</td>
+                  </tr>
+                }
+              </tbody>
+            </table>
             {accountsData.depositLoading && 
               <div className="text-center">
                 <div className="spinner-border" role="status">

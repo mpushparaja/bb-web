@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useLocation, useNavigate } from "react-router";
 import { Context as context } from "../../shared/context";
 import "./recipient-details.scss";
@@ -7,8 +7,8 @@ import Modals from "../../shared/modal";
 
 export function RecipientDetails() {
   let route = useLocation();
-  const showModal = useRef<any>();
   let navigate = useNavigate();
+  const showModal = useRef<any>();
   const auth = context();
   const [show, SetShow] = useState(false);
   const [selected, setSelected] = useState({accountId: 0, availableBalance: 0});
@@ -93,7 +93,7 @@ export function RecipientDetails() {
       {state.error && (<div className="alert-box-center">
         <div className="alert alert-danger" role="alert">{state.error}</div>
       </div>)}
-      <h3>Recipient Details</h3>
+      <h3 className="page-title">Recipient Details</h3>
       <Modals modalId={showModal} title="Are you sure to transfer the amount" onConfirm={onTransferAmount} />
       <div className="container">
         <div className="details">
