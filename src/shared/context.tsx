@@ -1,4 +1,5 @@
 import { createContext, useState, useContext } from "react";
+import { useNavigate } from "react-router-dom";
 
 const headers = {
   Accept: "application/json",
@@ -6,20 +7,7 @@ const headers = {
 };
 
 const { fetch: originalFetch } = window;
-window.fetch =  async (...args:any) => {
-    let [resource, config] = args;
-    //setting the api token for the header
-    config.headers = headers || {};
-    // config.headers["x-api-key"] = apiKey;
-    try {
-        const response = await originalFetch(resource, config);
-        return response;
-    } catch (error) {
-        console.error('Error fetching data:', error);
-        throw error;
-    }
-};  
-
+ 
 const initialState = {
   loading: false,
   token: "",
@@ -38,6 +26,32 @@ const MyContext = createContext<any>(initialState);
 
 export const Provider = ({ children }: any) => {
   const [state, setState] = useState<any>(initialState);
+  const navigate = useNavigate();
+
+  window.fetch =  async (...args:any) => {
+    let [resource, config] = args;
+    //setting the api token for the header
+    config.headers = headers || {};
+    // config.headers["x-api-key"] = apiKey;
+    try {
+        const response = await originalFetch(resource, config);
+        if (!response.ok) {
+          navigate('/404', {
+            state: {
+              error: 'Service indicates that the requested resource is not found. Please try again later.'
+            }
+          });
+        }
+        return response;
+    } catch (error) {
+        navigate('/404', {
+          state: {
+            error: 'Service indicates that the requested resource is not found. Please try again later.'
+          }
+        });
+        throw error;
+    }
+  };
 
   const saveToken = async (auth: any) => {
     try {

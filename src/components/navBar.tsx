@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 const logout = (e:any) => {
   e.preventDefault();
   sessionStorage.removeItem("logged");
-  window.location.reload();
+  window.location.href="/";
 }
 export function NavBar() {
   return (

@@ -100,7 +100,7 @@ export default function AccountList() {
               <tbody>
                 {accountsData.loan.map((data: any, index: any) => {
                   return (
-                    <tr onClick={accountDetailsPage(data.id, 'Loan Accounts', 'loan', 'payments')}>
+                    <tr key={`${index}_loan`} onClick={accountDetailsPage(data.id, 'Loan Accounts', 'loan', 'payments')}>
                       <td className="cursor" align="left" key={`${index}_loannumber`}>{data.loanNumber}</td>
                       <td className="cursor" align="left" key={`${index}_principlebalance`}>
                         <span>Available Balance: {data.principalBalance}</span> 
@@ -132,7 +132,7 @@ export default function AccountList() {
               <tbody>
                 {accountsData.deposit.map((data: any, index: any) => {
                   return (
-                    <tr onClick={accountDetailsPage(data.accountId, 'Deposit Accounts', 'deposit', 'transactions')}>
+                    <tr key={`${index}_deposit`} onClick={accountDetailsPage(data.accountId, 'Deposit Accounts', 'deposit', 'transactions')}>
                       <td className="cursor" align="left" key={`${index}_accountnumber`}>{data.accountNumber}</td>
                       <td className="cursor" align="left" key={`${index}_availablebalance`}>
                         <span>Available Balance: </span> {data.availableBalance}
