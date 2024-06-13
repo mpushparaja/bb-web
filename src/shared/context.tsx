@@ -16,10 +16,11 @@ const initialState = {
   secure: "",
   pwd: "",
   clientId: "",
+  uuid: ""
 };
 
 const config = {
-  API_URL: import.meta.env.VITE_API_URL,
+  API_URL: "https://pa0ykzslfh.execute-api.ap-southeast-1.amazonaws.com/",
 };
 
 const MyContext = createContext<any>(initialState);

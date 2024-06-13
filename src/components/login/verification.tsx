@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import {Context as context} from "../../shared/context"
-import {decrypt} from "../../shared/config"
+import {decrypt, createSessionID} from "../../shared/config"
 import "./verification.scss";
 
 export function Verification({checkLogIn} :any) {
@@ -132,6 +132,7 @@ export function Verification({checkLogIn} :any) {
     }));
     auth.saveMFA(params).then((data:any) => {
       if (data.code && data.code === 'Successful') {
+        const uuid = createSessionID(25);
         auth.setState((prevState :any) => ({
           ...prevState,
           confirmloading: false,
@@ -140,8 +141,9 @@ export function Verification({checkLogIn} :any) {
           userName: data.clientuser.userName,
           sessionId: data.session.accessToken.jwtToken,
           clientId: data.clientuser.clientId,
+          uuid: uuid
         }));
-        sessionStorage.setItem('logged', "true")
+        sessionStorage.setItem(uuid, "true")
         checkLogIn()
         navigate('/home', { replace: true });
       } else {

@@ -1,8 +1,6 @@
 import { useState, useEffect } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
-import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
-import "../node_modules/bootstrap/dist/js/bootstrap.bundle.min";
-import "./App.css";
+import {Context as context} from "./shared/context"
 import Footer from "./components/footer";
 import { Login } from "./components/login/login";
 import { NavBar } from "./components/navBar";
@@ -14,18 +12,23 @@ import AccountDetails from "./components/accounts/account-details";
 import { RecipientList } from "./components/transfers/recipient-list";
 import { AddRecipient } from "./components/transfers/add-recipient";
 import { RecipientDetails } from "./components/transfers/recipient-details";
+import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
+import "../node_modules/bootstrap/dist/js/bootstrap.bundle.min";
+import "./App.css";
 
 function App() {
+  const auth = context();
   const [isLogin, loggedIn] = useState(0);
+  const uuid = auth.state.uuid && sessionStorage.getItem(auth.state.uuid)
 
   useEffect(() => {
     if (!isLogin) {
-      sessionStorage.removeItem("logged");
+      sessionStorage.clear();
     }
   }, [isLogin]);
 
   const PrivateRoute = ({ children }: any) => {
-    return isLogin && sessionStorage.getItem("logged") ? (
+    return isLogin && uuid ? (
       children
     ) : (
       <Navigate to="/" replace />
@@ -38,7 +41,7 @@ function App() {
 
   return (
     <div className="container py-3">
-        {isLogin && sessionStorage.getItem("logged") ? <NavBar /> : ""}
+        {isLogin && uuid ? <NavBar /> : ""}
         <Routes>
           <Route path="/" element={<Login />}></Route>
           <Route

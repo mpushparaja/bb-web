@@ -10,12 +10,13 @@ export function Login() {
   const password = useRef<any>('');
   let navigate = useNavigate();
   const [login, setLogin] = useState({username: "", password: "", "usernameerror": "", "passworderror": "", error: "", loading: false});
-
+  const uuid = auth.state.uuid && sessionStorage.getItem(auth.state.uuid)
+  
   useEffect(() => {
-    if(sessionStorage.getItem('logged')) {
+    if(uuid) {
       navigate('/home');
     }
-  }, [sessionStorage.getItem('logged')])
+  }, [uuid])
 
   const onLogin = (event: any) => {
     event.preventDefault();
